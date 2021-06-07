@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import br.com.cuiadigital.sofunfilmsbank.R
 import br.com.cuiadigital.sofunfilmsbank.databinding.ActivityDetailFilmBinding
 import br.com.cuiadigital.sofunfilmsbank.model.FilmDetail
+import br.com.cuiadigital.sofunfilmsbank.model.Rating
 import coil.load
 
 class DetailFilmActivity : AppCompatActivity() {
@@ -28,6 +29,14 @@ class DetailFilmActivity : AppCompatActivity() {
             viewModel.init(idFilm)
             initObserver()
         }
+
+        handleFavoriteButton()
+    }
+
+    private fun handleFavoriteButton() {
+        binding.detailFavoriteImg.setOnClickListener{
+            binding.detailFavoriteImg.setImageResource(R.drawable.ic_favorite_red)
+        }
     }
 
     private fun initObserver() {
@@ -39,10 +48,6 @@ class DetailFilmActivity : AppCompatActivity() {
     }
 
     private fun loadViews(film: FilmDetail) {
-        binding.detailPosterImg.load(film.poster){
-            placeholder(R.drawable.ic_film_placeholder)
-            fallback(R.drawable.generic_poster)
-        }
         binding.detailTitle.text = film.title
         binding.detailPlot.text = film.plot
         binding.detaillActor.text = film.actors
@@ -53,16 +58,34 @@ class DetailFilmActivity : AppCompatActivity() {
         binding.detaillWriter.text = "${resources.getString(R.string.detail_header_writer)}:  ${film.writer}"
         binding.detaillType.text = film.type
 
-        if (film.ratings.size>0){
-            binding.ratingBar.rating = getRating(film.ratings[0].value)
+        handlePosterBinding(film.poster)
+        handleRatingBinding(film.ratings)
+    }
+
+    private fun handleRatingBinding(ratings: List<Rating>) {
+        if (ratings.size > EMPTY_ARRAY){
+            binding.ratingBar.rating = getFloatRating(ratings)
         }else{
             binding.ratingBar.visibility = View.GONE
         }
-
     }
 
-    private fun getRating(rating: String): Float {
-        return rating.split("/")[0].toFloat()
+    private fun handlePosterBinding(poster: String) {
+        if (poster.equals(NO_POSTER)){
+            binding.detailPosterImg.load(R.drawable.generic_poster)
+        }else{
+            binding.detailPosterImg.load(poster){
+                crossfade(true)
+                placeholder(R.drawable.ic_film_placeholder)
+            }
+        }
+    }
+
+
+    private fun getFloatRating(rating: List<Rating>): Float {
+        val arrayRating = rating[VALUE_RATING_POSTION].value
+        val floatRating = arrayRating.split("/")[0].toFloat()
+        return floatRating
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -73,5 +96,11 @@ class DetailFilmActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object{
+        private val NO_POSTER ="N/A"
+        private val VALUE_RATING_POSTION = 0
+        private val EMPTY_ARRAY = 0
     }
 }
