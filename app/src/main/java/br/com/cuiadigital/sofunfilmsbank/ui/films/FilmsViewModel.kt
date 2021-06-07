@@ -10,7 +10,7 @@ import br.com.cuiadigital.sofunfilmsbank.repository.FilmRepository
 
 class FilmsViewModel : ViewModel() {
 
-    companion object{ const val TAG = "fudeu1" }
+    companion object{ const val TAG = "FilmsViewModel" }
 
     private val filmRestApiTask = FilmRestApiTask()
     private val filmRepository = FilmRepository(filmRestApiTask)

@@ -1,5 +1,6 @@
 package br.com.cuiadigital.sofunfilmsbank.ui.films
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
@@ -8,16 +9,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import br.com.cuiadigital.sofunfilmsbank.R
 import br.com.cuiadigital.sofunfilmsbank.databinding.FilmsFragmentBinding
 import br.com.cuiadigital.sofunfilmsbank.model.Film
+import br.com.cuiadigital.sofunfilmsbank.ui.details_film.DetailFilmActivity
 
-class FilmsFragment : Fragment() {
+class FilmsFragment : Fragment(), FilmsAdapter.FilmClickItemListener {
     private var _binding: FilmsFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: FilmsViewModel
-    private val filmsAdapter = FilmsAdapter()
+    private val filmsAdapter = FilmsAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,6 +100,7 @@ class FilmsFragment : Fragment() {
         if (!listUpdatedFilms.isNullOrEmpty()) {
             filmsAdapter.updateListFIlms(listUpdatedFilms)
         } else {
+            loadingVisibity(false)
             messageToView(R.string.message_empty_search)
         }
     }
@@ -116,5 +120,15 @@ class FilmsFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
         binding.recyclerFilms.visibility = View.VISIBLE
         binding.txtMessage.visibility = View.GONE
+    }
+
+    override fun clickItemFilm(film: Film) {
+        val intent = Intent(context, DetailFilmActivity::class.java)
+        intent.putExtra(ID_EXTRA,film.id)
+        startActivity(intent)
+    }
+
+    companion object{
+        val ID_EXTRA = "ID_FILM_EXTRA"
     }
 }

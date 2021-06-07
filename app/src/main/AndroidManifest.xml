@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoFunFilmsBank">
+        <activity android:name=".ui.details_film.DetailFilmActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

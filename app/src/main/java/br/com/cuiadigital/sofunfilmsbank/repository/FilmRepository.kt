@@ -1,12 +1,14 @@
 package br.com.cuiadigital.sofunfilmsbank.repository
 
-import android.util.Log
+import androidx.paging.DataSource
 import br.com.cuiadigital.sofunfilmsbank.api.FilmRestApiTask
 import br.com.cuiadigital.sofunfilmsbank.model.Film
+import br.com.cuiadigital.sofunfilmsbank.model.FilmDetail
 
 class FilmRepository(private val filmRestApiTask: FilmRestApiTask) {
 
     private val filmList = arrayListOf<Film>()
+    private lateinit var filmDetail:FilmDetail
 
     fun getAllFilms(title: String):List<Film>{
         val request = filmRestApiTask.retrofitAPI().getAllFilms(title).execute()
@@ -15,9 +17,17 @@ class FilmRepository(private val filmRestApiTask: FilmRestApiTask) {
                 filmList.clear()
                 filmList.addAll(it.listFilms)
             }
-        }else{
-            Log.e("fudeu2",request.message())
         }
         return filmList
+    }
+
+    fun getFilmDetail(id:String):FilmDetail{
+        val request = filmRestApiTask.retrofitAPI().getFilmDetail(id).execute()
+        if (request.isSuccessful){
+            request.body()?.let {
+                filmDetail = it
+            }
+        }
+        return filmDetail
     }
 }

@@ -10,7 +10,7 @@ import br.com.cuiadigital.sofunfilmsbank.R
 import br.com.cuiadigital.sofunfilmsbank.model.Film
 import coil.load
 
-class FilmsAdapter(): RecyclerView.Adapter<FilmsAdapter.ViewHolder>() {
+class FilmsAdapter(private val listerner: FilmClickItemListener): RecyclerView.Adapter<FilmsAdapter.ViewHolder>() {
 
     private val listFilms= mutableListOf<Film?>()
 
@@ -33,11 +33,16 @@ class FilmsAdapter(): RecyclerView.Adapter<FilmsAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val title = itemView.findViewById<TextView>(R.id.item_film_title)
-    val year = itemView.findViewById<TextView>(R.id.item_film_year)
-    val type = itemView.findViewById<TextView>(R.id.item_film_type)
-    val poster = itemView.findViewById<ImageView>(R.id.item_film_poster)
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) ,
+    View.OnClickListener{
+        val title = itemView.findViewById<TextView>(R.id.item_film_title)
+        val year = itemView.findViewById<TextView>(R.id.item_film_year)
+        val type = itemView.findViewById<TextView>(R.id.item_film_type)
+        val poster = itemView.findViewById<ImageView>(R.id.item_film_poster)
+
+        init {
+            itemView.setOnClickListener(this)
+        }
 
         fun bind(film : Film){
             title.text = film.title
@@ -48,6 +53,17 @@ class FilmsAdapter(): RecyclerView.Adapter<FilmsAdapter.ViewHolder>() {
                 fallback(R.drawable.ic_film_placeholder)
             }
         }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION){
+                listFilms[position]?.let { listerner.clickItemFilm(it) }
+            }
+        }
+    }
+
+    interface FilmClickItemListener {
+        fun clickItemFilm(film: Film)
     }
 }
 
