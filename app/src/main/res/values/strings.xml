@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">So Fun Films Bank</string>
+    <string name="tab_text_1">Pesquisar Filmes</string>
+    <string name="tab_text_2">Favoritos</string>
+    <string name="search_film">Pesquisar filmes</string>
+    <string name="message_do_search">Digite o título do filme ou série e clique em pesquisar (lupa)</string>
+    <string name="message_empty_search">Nenhum título encontrado</string>
+    <string name="detail_sinopse">Sinopse: </string>
+    <string name="detail_actors">Atores: </string>
+    <string name="detail_others">Outras informações</string>
+    <string name="description_detail_favorite">Salvar como favorito</string>
+    <string name="description_detail_poster">Poster do filme</string>
+    <string name="detail_header_director">Diretor</string>
+    <string name="detail_header_language">Idioma</string>
+    <string name="detail_header_writer">Escritor</string>
+    <string name="detail_header_country">País</string>
+</resources>
