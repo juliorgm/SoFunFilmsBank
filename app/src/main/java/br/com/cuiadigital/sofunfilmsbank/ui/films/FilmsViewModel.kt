@@ -19,14 +19,14 @@ class FilmsViewModel : ViewModel() {
     val filmList: LiveData<List<Film>>
     get() = _filmList
 
-    var search_title = MutableLiveData<String>()
+    var searchTitle = MutableLiveData<String>()
 
     fun init(){
-        search_title.value = ""
+        searchTitle.value = ""
     }
 
-    fun search_films(){
-        getAllFilms(search_title.value.toString())
+    fun searchFilms(){
+        getAllFilms(searchTitle.value.toString())
     }
 
     private fun getAllFilms(title: String){

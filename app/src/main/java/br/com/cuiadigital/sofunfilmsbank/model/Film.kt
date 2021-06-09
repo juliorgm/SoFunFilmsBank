@@ -17,3 +17,8 @@ val type : String,
 @SerializedName("Poster")
 val poster : String
 ) : Parcelable
+
+data class ListFilms (
+    @SerializedName("Search")
+    val listFilms: List<Film>
+)

@@ -21,7 +21,7 @@ class DetailFilmActivity : AppCompatActivity() {
         binding = ActivityDetailFilmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (intent.hasExtra("ID_FILM_EXTRA")){
             val idFilm = intent.getStringExtra("ID_FILM_EXTRA")
@@ -35,7 +35,12 @@ class DetailFilmActivity : AppCompatActivity() {
 
     private fun handleFavoriteButton() {
         binding.detailFavoriteImg.setOnClickListener{
-            binding.detailFavoriteImg.setImageResource(R.drawable.ic_favorite_red)
+            if (viewModel.isFavorite.value == false){
+                binding.detailFavoriteImg.setImageResource(R.drawable.ic_favorite_red)
+            }else{
+                binding.detailFavoriteImg.setImageResource(R.drawable.ic_favorite_gray)
+            }
+            viewModel.favoriteChangeState()
         }
     }
 
@@ -59,19 +64,20 @@ class DetailFilmActivity : AppCompatActivity() {
         binding.detaillType.text = film.type
 
         handlePosterBinding(film.poster)
-        handleRatingBinding(film.ratings)
+        handleRatingBinding(film.imdbRating)
     }
 
-    private fun handleRatingBinding(ratings: List<Rating>) {
-        if (ratings.size > EMPTY_ARRAY){
-            binding.ratingBar.rating = getFloatRating(ratings)
-        }else{
+    private fun handleRatingBinding(ratingStr: String) {
+        if (ratingStr.isNotEmpty()){
+            val ratings = ratingStr.toFloat()
+            binding.ratingBar.rating = ratings
+        } else{
             binding.ratingBar.visibility = View.GONE
         }
     }
 
     private fun handlePosterBinding(poster: String) {
-        if (poster.equals(NO_POSTER)){
+        if (poster == NO_POSTER){
             binding.detailPosterImg.load(R.drawable.generic_poster)
         }else{
             binding.detailPosterImg.load(poster){
@@ -89,7 +95,7 @@ class DetailFilmActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
+        when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 return true
@@ -99,8 +105,7 @@ class DetailFilmActivity : AppCompatActivity() {
     }
 
     companion object{
-        private val NO_POSTER ="N/A"
+        private const val NO_POSTER ="N/A"
         private val VALUE_RATING_POSTION = 0
-        private val EMPTY_ARRAY = 0
     }
 }
