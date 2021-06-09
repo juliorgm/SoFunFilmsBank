@@ -32,10 +32,9 @@ class FavoriteFilmsFragment : Fragment(), FilmsFavoritesAdapter.FilmFavoriteClic
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavoriteFilmsBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +50,7 @@ class FavoriteFilmsFragment : Fragment(), FilmsFavoritesAdapter.FilmFavoriteClic
     }
 
     private fun initObserver() {
-        viewModel.filmDetail.observe(viewLifecycleOwner, Observer { list->
+        viewModel.filmDetail.observe(viewLifecycleOwner, { list->
             if (list.isNotEmpty()) {
                 filmsAdapter.updateListFIlms(list)
             }

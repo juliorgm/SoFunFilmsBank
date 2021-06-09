@@ -24,7 +24,7 @@ class DetailFilmViewModel(application: Application) : AndroidViewModel(Applicati
     val isFavorite: LiveData<Boolean>
         get() = _isFavorite
 
-    var idFilm = MutableLiveData<String>()
+    private var idFilm = MutableLiveData<String>()
 
     fun init(idFilm: String?) {
         this.idFilm.value = idFilm
@@ -33,7 +33,7 @@ class DetailFilmViewModel(application: Application) : AndroidViewModel(Applicati
 
 
     fun favoriteChangeState(){
-        if(isFavorite.value == true) _isFavorite.value = false else _isFavorite.value = true
+        _isFavorite.value = isFavorite.value != true
 
         if (isFavorite.value == true){
             saveFilmDetail()

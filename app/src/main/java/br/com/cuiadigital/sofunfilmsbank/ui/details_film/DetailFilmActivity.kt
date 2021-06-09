@@ -21,7 +21,7 @@ class DetailFilmActivity : AppCompatActivity() {
         binding = ActivityDetailFilmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (intent.hasExtra("ID_FILM_EXTRA")){
             val idFilm = intent.getStringExtra("ID_FILM_EXTRA")
@@ -77,7 +77,7 @@ class DetailFilmActivity : AppCompatActivity() {
     }
 
     private fun handlePosterBinding(poster: String) {
-        if (poster.equals(NO_POSTER)){
+        if (poster == NO_POSTER){
             binding.detailPosterImg.load(R.drawable.generic_poster)
         }else{
             binding.detailPosterImg.load(poster){
@@ -95,7 +95,7 @@ class DetailFilmActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
+        when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 return true
@@ -105,8 +105,7 @@ class DetailFilmActivity : AppCompatActivity() {
     }
 
     companion object{
-        private val NO_POSTER ="N/A"
+        private const val NO_POSTER ="N/A"
         private val VALUE_RATING_POSTION = 0
-        private val EMPTY_ARRAY = 0
     }
 }

@@ -17,11 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        style="@style/edittext_default" />
+        style="@style/edittext_default"
+        android:autofillHints="@string/search_film" />
 
     <ImageButton
         android:id="@+id/imageButton"
         android:src="@drawable/ic_action_search"
+        android:contentDescription="@string/button_search"
         app:layout_constraintBottom_toBottomOf="@+id/edt_search_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

@@ -40,10 +40,10 @@ class FilmsFavoritesAdapter(private val listerner: FilmFavoriteClickItemListener
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) ,
     View.OnClickListener{
-        val title = itemView.findViewById<TextView>(R.id.favorite_item_title)
-        val plot = itemView.findViewById<TextView>(R.id.favorite_item_plot)
-        val rating = itemView.findViewById<RatingBar>(R.id.favorite_item_rating)
-        val poster = itemView.findViewById<ImageView>(R.id.favorite_item_poster)
+        private val title = itemView.findViewById<TextView>(R.id.favorite_item_title)
+        private val plot = itemView.findViewById<TextView>(R.id.favorite_item_plot)
+        private val rating = itemView.findViewById<RatingBar>(R.id.favorite_item_rating)
+        private val poster = itemView.findViewById<ImageView>(R.id.favorite_item_poster)
 
         init {
             itemView.setOnClickListener(this)

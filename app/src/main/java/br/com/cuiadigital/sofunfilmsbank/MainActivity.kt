@@ -1,3 +1,5 @@
+@file:Suppress("PrivatePropertyName")
+
 package br.com.cuiadigital.sofunfilmsbank
 
 import android.os.Bundle

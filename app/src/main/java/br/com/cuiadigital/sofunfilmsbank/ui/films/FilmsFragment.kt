@@ -29,10 +29,9 @@ class FilmsFragment : Fragment(), FilmsAdapter.FilmClickItemListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FilmsFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,13 +58,13 @@ class FilmsFragment : Fragment(), FilmsAdapter.FilmClickItemListener {
         binding.imageButton.setOnClickListener {
             loadingVisibity(true)
             binding.progressBar.visibility = View.VISIBLE
-            viewModel.search_title.value = binding.edtSearchTitle.text.toString()
-            val search_title: String = viewModel.search_title.value.toString()
+            viewModel.searchTitle.value = binding.edtSearchTitle.text.toString()
+            val searchTitle: String = viewModel.searchTitle.value.toString()
 
-            if (search_title.isNullOrEmpty()){
+            if (searchTitle.isEmpty()){
                 messageToView(R.string.message_do_search)
             }else{
-                viewModel.search_films()
+                viewModel.searchFilms()
                 updateScreen()
             }
         }
@@ -77,7 +76,7 @@ class FilmsFragment : Fragment(), FilmsAdapter.FilmClickItemListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(titleSearch: Editable?) {
                 if (!titleSearch.isNullOrEmpty()) {
-                    viewModel.search_title.postValue(titleSearch.toString())
+                    viewModel.searchTitle.postValue(titleSearch.toString())
                 }
             }
         })
@@ -113,7 +112,7 @@ class FilmsFragment : Fragment(), FilmsAdapter.FilmClickItemListener {
         binding.progressBar.visibility = if(isLoading) View.VISIBLE else View.GONE
     }
 
-    fun messageToView(message: Int){
+    private fun messageToView(message: Int){
         binding.progressBar.visibility = View.GONE
         binding.recyclerFilms.visibility = View.GONE
         binding.txtMessage.visibility = View.VISIBLE

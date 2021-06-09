@@ -6,7 +6,7 @@ import br.com.cuiadigital.sofunfilmsbank.api.FilmRestApiTask
 import br.com.cuiadigital.sofunfilmsbank.dao.FilmDetailDao
 import br.com.cuiadigital.sofunfilmsbank.model.FilmDetail
 
-class FilmDetailRepository(val filmDetailDao: FilmDetailDao?, val filmRestApiTask: FilmRestApiTask?) {
+class FilmDetailRepository(private val filmDetailDao: FilmDetailDao?,private val filmRestApiTask: FilmRestApiTask?) {
 
     fun allFilmDetail(): List<FilmDetail> {
             return filmDetailDao?.getAll()!!
@@ -28,7 +28,7 @@ class FilmDetailRepository(val filmDetailDao: FilmDetailDao?, val filmRestApiTas
         }else{
             val request = filmRestApiTask?.retrofitAPI()?.getFilmDetail(imdbID)?.execute()
             if (request?.isSuccessful!!){
-                request?.body()?.let {
+                request.body()?.let {
                     return it
                 }
             }
