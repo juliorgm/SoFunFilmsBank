@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.cuiadigital.sofunfilmsbank.R
 import br.com.cuiadigital.sofunfilmsbank.model.Film
+import br.com.cuiadigital.sofunfilmsbank.model.FilmDetail
 import coil.load
 
 class FilmsAdapter(private val listerner: FilmClickItemListener): RecyclerView.Adapter<FilmsAdapter.ViewHolder>() {
@@ -35,10 +36,10 @@ class FilmsAdapter(private val listerner: FilmClickItemListener): RecyclerView.A
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) ,
     View.OnClickListener{
-        val title = itemView.findViewById<TextView>(R.id.item_film_title)
-        val year = itemView.findViewById<TextView>(R.id.item_film_year)
-        val type = itemView.findViewById<TextView>(R.id.item_film_type)
-        val poster = itemView.findViewById<ImageView>(R.id.item_film_poster)
+        private val title = itemView.findViewById<TextView>(R.id.item_film_title)
+        private val year = itemView.findViewById<TextView>(R.id.item_film_year)
+        private val type = itemView.findViewById<TextView>(R.id.item_film_type)
+        private val poster = itemView.findViewById<ImageView>(R.id.item_film_poster)
 
         init {
             itemView.setOnClickListener(this)

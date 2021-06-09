@@ -1,8 +1,6 @@
 package br.com.cuiadigital.sofunfilmsbank.api
 
-import android.os.Build
 import br.com.cuiadigital.sofunfilmsbank.BuildConfig
-import br.com.cuiadigital.sofunfilmsbank.model.Film
 import br.com.cuiadigital.sofunfilmsbank.model.FilmDetail
 import br.com.cuiadigital.sofunfilmsbank.model.ListFilms
 import retrofit2.Call

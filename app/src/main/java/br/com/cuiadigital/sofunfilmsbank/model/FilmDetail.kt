@@ -1,10 +1,13 @@
 package br.com.cuiadigital.sofunfilmsbank.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Entity()
 data class FilmDetail(
     @SerializedName("Title")
     val title : String,
@@ -34,8 +37,6 @@ data class FilmDetail(
     val awards : String,
     @SerializedName("Poster")
     val poster : String,
-    @SerializedName("Ratings")
-    val ratings : List<Rating>,
     @SerializedName("Metascore")
     val metascore : String,
     @SerializedName("imdbRating")
@@ -43,11 +44,10 @@ data class FilmDetail(
     @SerializedName("imdbVotes")
     val imdbVotes : String,
     @SerializedName("imdbID")
+    @PrimaryKey
     val imdbID : String,
     @SerializedName("Type")
     val type : String,
-    @SerializedName("totalSeasons")
-    val totalSeasons : String,
 ) : Parcelable
 
 @Parcelize
