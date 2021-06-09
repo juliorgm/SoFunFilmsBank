@@ -22,6 +22,10 @@ class FilmsFragment : Fragment(), FilmsAdapter.FilmClickItemListener {
     private lateinit var viewModel: FilmsViewModel
     private val filmsAdapter = FilmsAdapter(this)
 
+    companion object{
+        val ID_EXTRA = "ID_FILM_EXTRA"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -126,9 +130,5 @@ class FilmsFragment : Fragment(), FilmsAdapter.FilmClickItemListener {
         val intent = Intent(context, DetailFilmActivity::class.java)
         intent.putExtra(ID_EXTRA,film.id)
         startActivity(intent)
-    }
-
-    companion object{
-        val ID_EXTRA = "ID_FILM_EXTRA"
     }
 }

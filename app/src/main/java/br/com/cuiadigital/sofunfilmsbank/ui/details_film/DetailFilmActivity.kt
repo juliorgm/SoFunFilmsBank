@@ -35,7 +35,12 @@ class DetailFilmActivity : AppCompatActivity() {
 
     private fun handleFavoriteButton() {
         binding.detailFavoriteImg.setOnClickListener{
-            binding.detailFavoriteImg.setImageResource(R.drawable.ic_favorite_red)
+            if (viewModel.isFavorite.value == false){
+                binding.detailFavoriteImg.setImageResource(R.drawable.ic_favorite_red)
+            }else{
+                binding.detailFavoriteImg.setImageResource(R.drawable.ic_favorite_gray)
+            }
+            viewModel.favoriteChangeState()
         }
     }
 
@@ -59,13 +64,14 @@ class DetailFilmActivity : AppCompatActivity() {
         binding.detaillType.text = film.type
 
         handlePosterBinding(film.poster)
-        handleRatingBinding(film.ratings)
+        handleRatingBinding(film.imdbRating)
     }
 
-    private fun handleRatingBinding(ratings: List<Rating>) {
-        if (ratings.size > EMPTY_ARRAY){
-            binding.ratingBar.rating = getFloatRating(ratings)
-        }else{
+    private fun handleRatingBinding(ratingStr: String) {
+        if (ratingStr.isNotEmpty()){
+            val ratings = ratingStr.toFloat()
+            binding.ratingBar.rating = ratings
+        } else{
             binding.ratingBar.visibility = View.GONE
         }
     }

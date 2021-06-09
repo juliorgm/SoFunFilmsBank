@@ -40,7 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_search_title"
         app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/item_list_film" >
+        tools:listitem="@layout/item_list_film">
 
     </androidx.recyclerview.widget.RecyclerView>
 
